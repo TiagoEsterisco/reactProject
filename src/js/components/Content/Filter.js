@@ -13,10 +13,13 @@ export default class Filter extends React.Component {
 
     filterEvent(filterType, e) {
         let filterData = e.target.value;
+
         if(filterType === 'location'){
             this.filter.location = filterData;
             EventsAction.filterEventByLocation(filterData);
+
         } else if(filterType === 'topic'){
+
             this.filter.topic = filterData;
             EventsAction.filterEventByTopic(filterData);
         }
@@ -75,22 +78,22 @@ export default class Filter extends React.Component {
         <form class="form-inline">
             <div class="form-group col-sm-6">
                 <label>Topic</label>
-                <input class="form-control" placeholder="JavaScript" value={this.filter.topic} onChange={this.filterEvent.bind(this, 'topic')} />
+                <input class="form-control" placeholder="JavaScript" onChange={this.filterEvent.bind(this, 'topic')} />
                 <label >Location</label>
-                <input class="form-control" placeholder="West Kensington" value={this.filter.location} onChange={this.filterEvent.bind(this, 'location')} />
+                <input class="form-control" placeholder="West Kensington" onChange={this.filterEvent.bind(this, 'location')} />
             </div>
             <div class="form-group col-sm-6">
                 <label>From: </label>
-                <input class="form-control" type="date" name="from" value={this.filter.date.from} onChange={this.setDateRange.bind(this, 'from')}/>
+                <input class="form-control" type="date" name="from" onChange={this.setDateRange.bind(this, 'from')}/>
                 <label >To: </label>
-                <input class="form-control" type="date" name="to" value={this.filter.date.to} onChange={this.setDateRange.bind(this, 'to')}/>
+                <input class="form-control" type="date" name="to"  onChange={this.setDateRange.bind(this, 'to')}/>
             </div>
         </form>
         <div class="col-sm-12">
             <form class="form-inline pull-right">
                 <div class="form-group">
                     <label for="inputPassword2" class="sr-only">Save filter</label>
-                    <input type="text" class="form-control" placeholder="My filter" value={this.filter.name} onChange={this.setFilterName.bind(this)}/>
+                    <input type="text" class="form-control" placeholder="My filter" onChange={this.setFilterName.bind(this)}/>
                 </div>
                 <button type="submit" class="btn btn-success" onClick={this.saveFilter.bind(this)}>Save</button>
             </form>
