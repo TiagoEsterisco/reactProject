@@ -27,3 +27,10 @@ export function filterEventByDateRange(datesFilter){
         datesFilter
     });
 }
+
+export function filterEvent(filter){
+    dispatcher.dispatch({
+        type: 'FILTER_EVENT',
+        filter
+    });
+}

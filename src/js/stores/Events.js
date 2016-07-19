@@ -66,32 +66,46 @@ class Events extends EventEmitter {
         this.emit('change');
     }
 
-    filterEventByTopic(eventName) {
-        const events = this.getInitialList();
-        this.events = events.filter((event) => {
-            return event.topic.toLowerCase().indexOf(eventName.toLowerCase()) >= 0;
+    filterEventByTopic(filter, eventList) {
+        eventList = eventList.filter((event) => {
+            return event.topic.toLowerCase().indexOf(filter.toLowerCase()) >= 0;
         });
-        this.emit('change');
+        return eventList;
     }
 
-    filterEventByLocation(eventName) {
-        const events = this.getInitialList();
-        this.events = events.filter((event) => {
-            return event.location.toLowerCase().indexOf(eventName.toLowerCase()) >= 0;
+    filterEventByLocation(filter, eventList) {
+        eventList = eventList.filter((event) => {
+            return event.location.toLowerCase().indexOf(filter.toLowerCase()) >= 0;
         });
-        this.emit('change');
+        return eventList;
     }
 
-    filterEventByDateRange(datesObj) {
-        const events = this.getInitialList();
-
-        this.events = events.filter((event) => {
+    filterEventByDateRange(datesObj, eventList) {
+        console.log(eventList);
+        eventList = eventList.filter((event) => {
             let eventDate = new Date(event.date.start);
             let filterFrom = new Date(datesObj.from);
             let filterTo = new Date(datesObj.to);
 
             return eventDate > filterFrom &&  eventDate < filterTo;
         });
+
+        return eventList;
+    }
+
+    filterEvent(filter) {
+        const events = this.getInitialList();
+        this.events = events;
+        if(filter.topic){
+            this.events = this.filterEventByTopic(filter.topic, events);
+        }
+        if(filter.location){
+            this.events = this.filterEventByLocation(filter.location, this.events);
+        } if(filter.date.from && filter.date.to){
+            console.log(filter.data);
+            this.events = this.filterEventByDateRange(filter.date, this.events);
+        }
+
 
         this.emit('change');
     }
@@ -112,6 +126,10 @@ class Events extends EventEmitter {
             }
             case 'FILTER_EVENT_BY_DATE_RANGE': {
                 this.filterEventByDateRange(action.datesFilter);
+                break;
+            }
+            case 'FILTER_EVENT': {
+                this.filterEvent(action.filter);
                 break;
             }
         }
