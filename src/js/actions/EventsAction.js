@@ -7,27 +7,6 @@ export function createEvent(event){
     });
 }
 
-export function filterEventByTopic(text){
-    dispatcher.dispatch({
-        type: 'FILTER_EVENT_BY_TOPIC',
-        text
-    });
-}
-
-export function filterEventByLocation(text){
-    dispatcher.dispatch({
-        type: 'FILTER_EVENT_BY_LOCATION',
-        text
-    });
-}
-
-export function filterEventByDateRange(datesFilter){
-    dispatcher.dispatch({
-        type: 'FILTER_EVENT_BY_DATE_RANGE',
-        datesFilter
-    });
-}
-
 export function filterEvent(filter){
     dispatcher.dispatch({
         type: 'FILTER_EVENT',

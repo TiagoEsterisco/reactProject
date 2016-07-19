@@ -12,38 +12,35 @@ export default class Filter extends React.Component {
     }
 
 
-    filterEvent(filterType, e) {
+    setFilterEvent(filterType, e) {
         let filterData = e.target.value;
 
         if(filterType === 'location'){
             this.filter.location = filterData;
+            this.props.selectedFilter.location = filterData;
         } else if(filterType === 'topic'){
             this.filter.topic = filterData;
-        }
-
-        EventsAction.filterEvent(this.filter);
-    }
-
-    filterEventByDateRange(filterType, e){
-        let filterData = e.target.value;
-        if(filterType === 'from'){
+            this.props.selectedFilter.topic = filterData;
+        } else if(filterType === 'from'){
             this.dateRangeFrom = filterData;
+            this.props.selectedFilter.date.from = filterData;
         } else if( filterType === 'to') {
             this.dateRangeTo = filterData;
+            this.props.selectedFilter.date.to = filterData;
         }
-
         if(this.dateRangeFrom && this.dateRangeTo){
             let datesFilter = {
                 from: this.dateRangeFrom,
                 to: this.dateRangeTo
             };
             this.filter.date = datesFilter;
-            EventsAction.filterEvent(this.filter);
         }
+        EventsAction.filterEvent(this.filter);
     }
 
     setFilterName(e){
         this.filterName = e.target.value;
+        this.props.selectedFilter.name = this.filterName;
     }
 
     saveFilter(){
@@ -53,12 +50,13 @@ export default class Filter extends React.Component {
             topic: this.filter.topic,
             dates: this.filter.dates
         };
-
         FiltersAction.createFilter(filterData);
     }
 
-
     formatDate(date) {
+        if(!date) {
+            return;
+        }
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),
             day = '' + d.getDate(),
@@ -74,30 +72,35 @@ export default class Filter extends React.Component {
         return (
             <div>
                 <h4>Filter: </h4>
-                <div class="col-sm-4">
-                    <form class="form-inline">
+                <div class="col-sm-5">
+                    <form class="form-horizontal">
                         <div class="form-group col-sm-6">
                             <label>Topic</label>
-                            <input class="form-control" placeholder="JavaScript" onChange={this.filterEvent.bind(this, 'topic')} />
-                            <label >Location</label>
-                            <input class="form-control" placeholder="West Kensington" onChange={this.filterEvent.bind(this, 'location')} />
+                            <input class="form-control" placeholder="JavaScript" value={this.props.selectedFilter.topic} onChange={this.setFilterEvent.bind(this, 'topic')} />
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label>Location</label>
+                            <input class="form-control" placeholder="West Kensington" value={this.props.selectedFilter.location} onChange={this.setFilterEvent.bind(this, 'location')} />
                         </div>
                         <div class="form-group col-sm-6">
                             <label>From: </label>
-                            <input class="form-control" type="date" name="from" onChange={this.filterEventByDateRange.bind(this, 'from')}/>
+                            <input class="form-control" type="date" name="from" value={this.formatDate(this.props.selectedFilter.date.from)} onChange={this.setFilterEvent.bind(this, 'from')}/>
+                        </div>
+                        <div class="form-group col-sm-6">
                             <label >To: </label>
-                            <input class="form-control" type="date" name="to"  onChange={this.filterEventByDateRange.bind(this, 'to')}/>
+                            <input class="form-control" type="date" name="to"  value={this.formatDate(this.props.selectedFilter.date.to)} onChange={this.setFilterEvent.bind(this, 'to')}/>
                         </div>
                     </form>
-                    <div class="col-sm-12">
-                        <form class="form-inline pull-right">
-                            <div class="form-group">
-                                <label for="inputPassword2" class="sr-only">Save filter</label>
-                                <input type="text" class="form-control" placeholder="My filter" onChange={this.setFilterName.bind(this)}/>
-                            </div>
-                            <button type="submit" class="btn btn-success" onClick={this.saveFilter.bind(this)}>Save</button>
-                        </form>
-                    </div>
+
+                    <form class="form-horizontal">
+                        <div class="form-group col-sm-8">
+                            <input type="text" class="form-control" placeholder="Filter name" value={this.props.selectedFilter.name} onChange={this.setFilterName.bind(this)}/>
+                        </div>
+                        <div class="form-group col-sm-4">
+                        <button type="submit" class="btn btn-success" onClick={this.saveFilter.bind(this)}>Save</button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         );

@@ -17,7 +17,10 @@ export default class Layout extends React.Component {
             'filters' : Filters.getAll(),
             selectedFilter : Filters.filterLoaded()
         };
-        console.log(this.state);
+    }
+
+    matchedEvent(){
+        console.log('matchedEvent');
     }
 
     componentWillMount() {
@@ -30,7 +33,7 @@ export default class Layout extends React.Component {
         Filters.on('change', () => {
             this.setState({
                 filters: Filters.getAll(),
-                selectedFilter: Filters.filterLoaded()
+                selectedFilter: Filters.filterLoaded(),
             });
         });
     }

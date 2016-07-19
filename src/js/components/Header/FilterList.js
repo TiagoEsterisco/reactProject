@@ -26,6 +26,7 @@ export default class FilterList extends React.Component {
                     <option disabled value="0">Filters</option>
                     {Filters}
                 </select>
+
             </div>
         );
     }

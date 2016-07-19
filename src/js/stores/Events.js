@@ -81,7 +81,6 @@ class Events extends EventEmitter {
     }
 
     filterEventByDateRange(datesObj, eventList) {
-        console.log(eventList);
         eventList = eventList.filter((event) => {
             let eventDate = new Date(event.date.start);
             let filterFrom = new Date(datesObj.from);
@@ -102,10 +101,8 @@ class Events extends EventEmitter {
         if(filter.location){
             this.events = this.filterEventByLocation(filter.location, this.events);
         } if(filter.date.from && filter.date.to){
-            console.log(filter.data);
             this.events = this.filterEventByDateRange(filter.date, this.events);
         }
-
 
         this.emit('change');
     }
@@ -114,18 +111,6 @@ class Events extends EventEmitter {
         switch(action.type) {
             case 'CREATE_EVENT': {
                 this.createEvent(action.event);
-                break;
-            }
-            case 'FILTER_EVENT_BY_TOPIC': {
-                this.filterEventByTopic(action.text);
-                break;
-            }
-            case 'FILTER_EVENT_BY_LOCATION': {
-                this.filterEventByLocation(action.text);
-                break;
-            }
-            case 'FILTER_EVENT_BY_DATE_RANGE': {
-                this.filterEventByDateRange(action.datesFilter);
                 break;
             }
             case 'FILTER_EVENT': {

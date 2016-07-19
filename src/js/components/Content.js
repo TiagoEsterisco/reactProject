@@ -15,11 +15,11 @@ export default class Content extends React.Component {
         return (
           <div class="container">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-7">
                     <h5>Events:</h5>
-                    <ul class="list-group col-sm-8"> {Events} </ul>
-                    <Filter selectedFilter={this.props.selectedFilter}/>
+                    <ul class="list-group"> {Events} </ul>
                 </div>
+                <Filter selectedFilter={this.props.selectedFilter}/>
             </div>
           </div>
         );

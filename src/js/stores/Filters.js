@@ -50,7 +50,6 @@ class Filter extends EventEmitter {
         return this.filterSelected;
     }
 
-
     handleAction(action) {
         switch(action.type) {
             case 'CREATE_FILTER': {
