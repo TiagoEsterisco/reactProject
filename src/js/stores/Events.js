@@ -14,7 +14,6 @@ class Events extends EventEmitter {
                 start: 'Fri Jul 15 2016 12:19:44 GMT+0100 (BST)'
             },
             topic: 'Html Css',
-            image: 'https://farm3.staticflickr.com/2142/1507196484_1523f4b06e_z.jpg'
         }, {
             id: 2,
             location: 'Piccadilly Circus',
@@ -22,7 +21,6 @@ class Events extends EventEmitter {
                 start: 'Fri Jul 18 2016 12:19:44 GMT+0100 (BST)'
             },
             topic: 'Clean Code',
-            image: 'https://www.ijoomla.com/blog/wp-content/uploads/2012/02/clean-joomla-code.jpg'
         }, {
             id: 3,
             location: 'Hammersmith',
@@ -30,24 +28,21 @@ class Events extends EventEmitter {
                 start: 'Fri Jul 11 2016 12:19:44 GMT+0100 (BST)',
             },
             topic: 'JavaScript',
-            image: 'https://udemy-images.udemy.com/course/750x422/672274_cd11_2.jpg'
         },{
             id: 4,
             location: 'Hammersmith',
             date: {
-                start: 'Fri Jul 11 2016 12:19:44 GMT+0100 (BST)',
+                start: 'Fri Jul 10 2016 12:19:44 GMT+0100 (BST)',
             },
             topic: 'Html',
-            image: 'https://udemy-images.udemy.com/course/750x422/672274_cd11_2.jpg'
         },
         {
             id: 5,
             location: 'Hammersmith',
             date: {
-                start: 'Fri Jul 11 2016 12:19:44 GMT+0100 (BST)',
+                start: 'Fri Jul 11 2016 10:19:44 GMT+0100 (BST)',
             },
             topic: 'Sass',
-            image: 'https://udemy-images.udemy.com/course/750x422/672274_cd11_2.jpg'
         }];
 
         this.setEvents(events);
@@ -67,22 +62,14 @@ class Events extends EventEmitter {
     }
 
     createEvent(newEvent) {
-        this.events.push({
-            id: newEvent.id,
-            location: newEvent.location,
-            date: {
-                start: newEvent.date
-            },
-            topic: newEvent.topic
-        });
-
+        this.events.push(newEvent);
         this.emit('change');
     }
 
     filterEventByTopic(eventName) {
         const events = this.getInitialList();
         this.events = events.filter((event) => {
-            return event.topic.toLowerCase().indexOf(eventName) >= 0;
+            return event.topic.toLowerCase().indexOf(eventName.toLowerCase()) >= 0;
         });
         this.emit('change');
     }
@@ -90,7 +77,7 @@ class Events extends EventEmitter {
     filterEventByLocation(eventName) {
         const events = this.getInitialList();
         this.events = events.filter((event) => {
-            return event.location.toLowerCase().indexOf(eventName) >= 0;
+            return event.location.toLowerCase().indexOf(eventName.toLowerCase()) >= 0;
         });
         this.emit('change');
     }

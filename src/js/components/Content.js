@@ -16,9 +16,9 @@ export default class Content extends React.Component {
           <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <Filter/>
                     <h5>Events:</h5>
-                    <ul class="list-group"> {Events} </ul>
+                    <ul class="list-group col-sm-8"> {Events} </ul>
+                    <Filter selectedFilter={this.props.selectedFilter}/>
                 </div>
             </div>
           </div>
