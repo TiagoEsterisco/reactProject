@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 // Event events
 import { fetchEvent, filterEventByLocation, createEvent  } from '../actions/eventAction'
-import { setCurrentFilter  } from '../actions/filterAction'
+import { setCurrentFilter, discardNotification  } from '../actions/filterAction'
 
 @connect((store) => {
     return {
@@ -32,11 +32,18 @@ export default class Layout extends React.Component {
         // this.props.dispatch(createFilter())
     }
 
+    discardNotification(){
+        this.props.dispatch(discardNotification())
+    }
+
     render() {
 
         const { list, filtered } = this.props.events
+        const { notification } = this.props.filters
 
         let mappedEvents;
+        let notifyUser;
+        console.log(this.props.filters);
 
 
         if(filtered.hasResults){
@@ -50,8 +57,15 @@ export default class Layout extends React.Component {
             // });
         }
 
+        if(notification.haveMatch){
+            notifyUser = <h1 onClick={this.discardNotification.bind(this)}> One of your filters match new event </h1>;
+        }
+
+
+
+
         return ( <div>
-                    <div>Filter: </div>
+                    {notifyUser}
                     <ul> {mappedEvents} </ul>
                     <input onChange={this.filterEventByLocation.bind(this)}/>
                     <button onClick={this.saveFilter.bind(this)}> Save filter </button>

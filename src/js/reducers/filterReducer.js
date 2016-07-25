@@ -26,6 +26,9 @@ export default function reducer(state={
 
             return {...state, notification};
         }
+        case 'DISCARD_NOTIFICATION' : {
+            return {...state, notification: action.payload}
+        }
     }
     return state
 }

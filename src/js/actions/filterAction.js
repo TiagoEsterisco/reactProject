@@ -11,3 +11,13 @@ export function setCurrentFilter(filter){
         payload: filter
     }
 };
+
+export function discardNotification(){
+    return {
+        type: 'DISCARD_NOTIFICATION',
+        payload: {
+            haveMatch: false,
+            filter: {}
+        }
+    }
+};
