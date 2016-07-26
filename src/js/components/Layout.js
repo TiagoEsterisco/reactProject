@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
-// Event events
 import { fetchEvent, createEvent  } from '../actions/eventAction'
+import { getCurrentFilter  } from '../actions/filterAction'
 
 import Events from './Events'
 import Notification from './Notification'
@@ -18,6 +18,7 @@ import SearchEvent from './SearchEvent'
 export default class Layout extends React.Component {
     componentWillMount(){
         this.props.dispatch(fetchEvent());
+        this.props.dispatch(getCurrentFilter());
     }
 
     addNewEvent(){
@@ -25,7 +26,7 @@ export default class Layout extends React.Component {
     }
 
     render() {
-        const { notification, list } = this.props.filters;
+        const { notification, list, currentFilter } = this.props.filters;
         let savedFilters;
 
 
@@ -39,7 +40,7 @@ export default class Layout extends React.Component {
         return ( <div>
                     <Notification notification={notification} dispatch={this.props.dispatch}/>
                     <Events events={this.props.events}></Events>
-                    <SearchEvent dispatch={this.props.dispatch}/>
+                    <SearchEvent currentFilter={currentFilter} dispatch={this.props.dispatch}/>
 
                     <br/>
 

@@ -2,15 +2,24 @@ import {filterAll} from '../aux/filter'
 
 export default function reducer(state={
     list: [],
-    currentFilter: {},
+    currentFilter: {
+        location: '',
+        topic: '',
+        from:'',
+        to: '',
+        name: ''
+    },
     notification: {
         haveMatch: false,
         filters: []
     }
 }, action) {
     switch (action.type) {
+        case 'GET_CURRENT_FILTER' : {
+            return state;
+        }
         case 'SET_CURRENT_FILTER' : {
-            return {...state, currentFilter: action.payload };
+            return {...state, currentFilter:action.payload };
         }
         case 'CREATE_FILTER' : {
 

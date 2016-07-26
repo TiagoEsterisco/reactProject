@@ -5,6 +5,12 @@ export function fetchFilter(filter){
     }
 };
 
+export function getCurrentFilter(){
+    return {
+        type: 'GET_CURRENT_FILTER'
+    }
+};
+
 export function setCurrentFilter(filter){
     return {
         type: 'SET_CURRENT_FILTER',
