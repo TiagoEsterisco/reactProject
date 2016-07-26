@@ -12,6 +12,13 @@ export function setCurrentFilter(filter){
     }
 };
 
+export function saveFilter(filter){
+    return {
+        type: 'SAVE_FILTER',
+        payload: filter
+    }
+};
+
 export function discardNotification(){
     return {
         type: 'DISCARD_NOTIFICATION',

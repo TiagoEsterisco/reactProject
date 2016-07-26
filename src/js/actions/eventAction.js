@@ -16,7 +16,7 @@ export function fetchEvent(){
         location: 'West Kensington',
         id: 3,
         startTime: '14:00',
-        date: '2016-08-25',
+        date: '2016-08-28',
         topics: ['react', 'flux']
     }];
 

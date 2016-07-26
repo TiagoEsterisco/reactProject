@@ -1,9 +1,11 @@
+import {filterAll} from '../aux/filter'
+
 export default function reducer(state={
     list: [],
     currentFilter: {},
     notification: {
         haveMatch: false,
-        filter: {}
+        filters: []
     }
 }, action) {
     switch (action.type) {
@@ -16,14 +18,26 @@ export default function reducer(state={
         }
         case 'CREATE_EVENT' : {
             let notification = {...state.notification};
+            let filteredEvents;
 
-            if(state.currentFilter.location && state.currentFilter.location.toLowerCase() === action.payload.location.toLowerCase()){
-                alert();
-                notification.filter = {location: state.currentFilter};
-                notification.haveMatch = true;
+            // Have filters
+            if(state.list.length){
+                state.list.forEach((filter) => {
+                    filteredEvents = filterAll([action.payload], filter);
+                    if(filteredEvents.length){
+                        notification.haveMatch = true;
+                        notification.filters = [...notification.filters, filter];
+                    }
+                });
             }
 
             return {...state, notification};
+        }
+        case 'SAVE_FILTER' : {
+
+            let list = [...state.list, action.payload];
+
+            return {...state, list}
         }
         case 'DISCARD_NOTIFICATION' : {
             return {...state, notification: action.payload}
