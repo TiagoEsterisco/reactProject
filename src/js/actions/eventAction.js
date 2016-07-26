@@ -1,11 +1,23 @@
 export function fetchEvent(){
 
     let eventsList = [{
-        location: 'West Kensington'
+        location: 'West Kensington',
+        id: 1,
+        startTime: '14:00',
+        date: '2016-07-25',
+        topics: ['html', 'javascript', 'css']
     },{
-        location: 'South Kensington'
+        location: 'South Kensington',
+        id: 2,
+        startTime: '14:00',
+        date: '2016-07-26',
+        topics: ['react', 'redux']
     },{
-        location: 'West Kensington'
+        location: 'West Kensington',
+        id: 3,
+        startTime: '14:00',
+        date: '2016-08-25',
+        topics: ['react', 'flux']
     }];
 
     return {
@@ -14,16 +26,22 @@ export function fetchEvent(){
     }
 };
 
-export function filterEventByLocation(text){
+export function filterEvent(filter){
     return {
-        type: 'FILTER_EVENT_BY_LOCATION',
-        payload: text
+        type: 'FILTER_EVENT',
+        payload: filter
     }
 };
 
 export function createEvent(){
     return {
         type: 'CREATE_EVENT',
-        payload: {location: 'Viana'}
+        payload: {
+                    location: 'South Kensington',
+                    id: 4,
+                    startTime: '17:00',
+                    date: '2016-08-25',
+                    topics: ['flux', 'reflux', 'redux']
+                }
     }
 };

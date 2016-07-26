@@ -8,18 +8,17 @@ export default function reducer(state={
 }, action) {
     switch (action.type) {
         case 'SET_CURRENT_FILTER' : {
-            let currentFilter = {
-                location : action.payload
-            }
-            return {...state, currentFilter };
+            return {...state, currentFilter: action.payload };
         }
         case 'CREATE_FILTER' : {
-            return state;
+
+            return {...state, };
         }
         case 'CREATE_EVENT' : {
             let notification = {...state.notification};
 
-            if(state.currentFilter.location.toLowerCase && action.payload.location.toLowerCase){
+            if(state.currentFilter.location && state.currentFilter.location.toLowerCase() === action.payload.location.toLowerCase()){
+                alert();
                 notification.filter = {location: state.currentFilter};
                 notification.haveMatch = true;
             }
