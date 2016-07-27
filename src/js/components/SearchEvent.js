@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { fetchEvent, filterEvent, createEvent  } from '../actions/eventAction'
+import { filterEvent } from '../actions/eventAction'
 import { setCurrentFilter, saveFilter, clearFilter  } from '../actions/filterAction'
 
 export default class SearchEvent extends React.Component {
-    componentWillMount(){}
-
     filterEvent(filterType, filterValue) {
         let filter = {};
         filterValue = filterValue.target.value;
@@ -32,7 +30,7 @@ export default class SearchEvent extends React.Component {
     render() {
         const {currentFilter} = this.props;
         return (
-            <form class="form-horizontal">
+            <div class="form-horizontal">
                 <div class="form-group">
                     <div class="col-xs-6">
                         <label  class="control-label">Location</label>
@@ -58,6 +56,6 @@ export default class SearchEvent extends React.Component {
                         <button  class="btn btn-primary col-xs-5 col-xs-offset-1" onClick={this.clearFilter.bind(this)}>Clear Filter</button>
                     </div>
                 </div>
-            </form> );
+            </div> );
     }
 }

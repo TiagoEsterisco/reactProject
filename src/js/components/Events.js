@@ -16,7 +16,7 @@ export default class Events extends React.Component {
             });
 
             if(!filtered.hasResults){
-                mappedEvents = 'No event match your filter';
+                mappedEvents = <li class="alert alert-danger">No event match your filter</li>;
             }
 
         } else {

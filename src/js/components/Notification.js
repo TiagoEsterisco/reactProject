@@ -24,7 +24,7 @@ export default class Notification extends React.Component {
                 filterNames = [...filterNames, filter.name];
             });
 
-            notifyTemplate = <h6 class="alert alert-danger" onClick={this.discardNotification.bind(this)}> {text} "{filterNames.toString()}" match a new event </h6>;
+            notifyTemplate = <h6 class="alert alert-warning" onClick={this.discardNotification.bind(this)}> {text} "{filterNames.toString()}" match a new event </h6>;
         }
 
         return ( <div> {notifyTemplate} </div> );

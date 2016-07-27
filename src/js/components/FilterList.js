@@ -1,5 +1,6 @@
 import React from 'react';
 import { setFilter } from '../actions/filterAction'
+import { filterEvent } from '../actions/eventAction'
 
 
 export default class FilterList extends React.Component {
@@ -11,6 +12,7 @@ export default class FilterList extends React.Component {
 
     setSelectedFilter(e){
         this.props.dispatch(setFilter(e.target.value));
+        this.props.dispatch(filterEvent(this.props.currentFilter));
     }
 
     render() {
@@ -21,7 +23,7 @@ export default class FilterList extends React.Component {
             let option = filtersList.map(filter => {
                 return <option key={filter.id} value={filter.id}  >{filter.name}</option>
             });
-            savedFilters =  <div> <p> Saved Filters: </p> <select onChange={this.setSelectedFilter.bind(this)}>{option}</select></div>
+            savedFilters =  <div> <p> Saved Filters: </p> <select class="form-control" onChange={this.setSelectedFilter.bind(this)}>{option}</select></div>
         }
         return (
             <div>
