@@ -33,16 +33,19 @@ export default class Layout extends React.Component {
                     <div class="row">
                         <div class="col-xs-12">
                             <Notification notification={notification} dispatch={this.props.dispatch}/>
+                        <div class="col-xs-6">
                             <Events events={this.props.events}></Events>
+                        </div>
+                        <div class="col-xs-6">
+                        <SearchEvent currentFilter={currentFilter} dispatch={this.props.dispatch}/>
+                        </div>
+                        <div class="col-xs-12">
                             <FilterList filtersList= {list} currentFilter={currentFilter} dispatch={this.props.dispatch} />
-                            <SearchEvent currentFilter={currentFilter} dispatch={this.props.dispatch}/>
-
                             <br/>
-
-
                             <button class="btn btn-info" onClick={this.addNewEvent.bind(this)}> Create event </button>
                             <h5><small>If have filter for Location: South, Topic: 'flux', 'reflux', 'redux', Date Range: 2016-08-24 - 2016-08-26 </small></h5>
                             <h5><small>Will trigger notification </small></h5>
+                        </div>
                         </div>
                     </div>
                  </div>
