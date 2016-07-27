@@ -1,69 +1,54 @@
 import React from 'react';
+import { connect } from 'react-redux'
 
-import Content from './Content';
-import Footer from './Footer';
-import Header from './Header';
+import { fetchEvent, createEvent  } from '../actions/eventAction'
+import { getCurrentFilter  } from '../actions/filterAction'
 
-import Events from '../stores/Events';
-import Filters from '../stores/Filters';
-import * as EventsAction from '../actions/EventsAction';
+import FilterList from './FilterList'
+import Events from './Events'
+import Notification from './Notification'
+import SearchEvent from './SearchEvent'
+
+@connect((store) => {
+    return {
+        events: store.events,
+        filters: store.filters
+    }
+})
 
 export default class Layout extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            title: 'moteefe',
-            'events' : Events.getAll(),
-            'filters' : Filters.getAll(),
-            selectedFilter : Filters.filterLoaded()
-        };
+    componentWillMount(){
+        this.props.dispatch(fetchEvent());
+        this.props.dispatch(getCurrentFilter());
     }
 
-    matchedEvent(){
-        console.log('matchedEvent');
+    addNewEvent(){
+        this.props.dispatch(createEvent());
     }
 
-    componentWillMount() {
-        Events.on('change', () => {
-            this.setState({
-                events: Events.getAll()
-            });
-        });
+    render() {
+        const { notification, list, currentFilter } = this.props.filters;
 
-        Filters.on('change', () => {
-            this.setState({
-                filters: Filters.getAll(),
-                selectedFilter: Filters.filterLoaded(),
-            });
-        });
+        return ( <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <Notification notification={notification} dispatch={this.props.dispatch}/>
+                        <div class="col-xs-6">
+                            <Events events={this.props.events}></Events>
+                        </div>
+                        <div class="col-xs-6">
+                        <SearchEvent currentFilter={currentFilter} dispatch={this.props.dispatch}/>
+                        </div>
+                        <div class="col-xs-12">
+                            <FilterList filtersList= {list} currentFilter={currentFilter} dispatch={this.props.dispatch} />
+                            <br/>
+                            <button class="btn btn-info" onClick={this.addNewEvent.bind(this)}> Create event </button>
+                            <h5><small>If have filter for Location: South, Topic: 'flux', 'reflux', 'redux', Date Range: 2016-08-24 - 2016-08-26 </small></h5>
+                            <h5><small>Will trigger notification </small></h5>
+                        </div>
+                        </div>
+                    </div>
+                 </div>
+        );
     }
-
-    //Demo purpose
-    createEvent(){
-        EventsAction.createEvent({
-            id: 6,
-            location: 'Bond Street',
-            date: {
-                start: new Date().toString()
-            },
-            topic: 'Google How to'
-        });
-    }
-
-  render() {
-    return (
-      <div>
-        <Header title={this.state.title} filters={this.state.filters}/>
-        <Content events={this.state.events} selectedFilter={this.state.selectedFilter}/>
-
-        <div class="container">
-            <div class="col-sm-12">
-                <button class="btn btn-default"onClick={this.createEvent.bind(this)}> Create demo event </button>
-            </div>
-        </div>
-
-        <Footer />
-      </div>
-    );
-  }
 }
