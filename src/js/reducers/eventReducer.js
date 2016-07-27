@@ -10,7 +10,29 @@ export default function reducer(state={
 }, action) {
     switch (action.type) {
         case 'FETCH_EVENTS': {
-            return {...state, list : action.payload}
+
+            // AJAX CALL
+            let eventsList = [{
+                location: 'West Kensington',
+                id: 1,
+                startTime: '14:00',
+                date: '2016-07-25',
+                topics: ['html', 'javascript', 'css']
+            },{
+                location: 'South Kensington',
+                id: 2,
+                startTime: '14:00',
+                date: '2016-07-26',
+                topics: ['react', 'redux']
+            },{
+                location: 'West Kensington',
+                id: 3,
+                startTime: '14:00',
+                date: '2016-08-28',
+                topics: ['react', 'flux']
+            }];
+
+            return {...state, list : eventsList}
         };
         case 'FILTER_EVENT' : {
 
