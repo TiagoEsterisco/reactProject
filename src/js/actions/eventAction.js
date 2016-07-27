@@ -38,7 +38,7 @@ export function createEvent(){
         type: 'CREATE_EVENT',
         payload: {
                     location: 'South Kensington',
-                    id: 4,
+                    id: Date.now(),
                     startTime: '17:00',
                     date: '2016-08-25',
                     topics: ['flux', 'reflux', 'redux']

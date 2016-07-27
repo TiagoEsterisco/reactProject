@@ -25,6 +25,6 @@ export default class Events extends React.Component {
             });
         }
 
-        return ( <ul> {mappedEvents} </ul> );
+        return ( <ul class="list-group"> {mappedEvents} </ul> );
     }
 }

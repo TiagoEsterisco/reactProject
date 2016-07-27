@@ -33,6 +33,15 @@ export default function reducer(state={
 
             return {...state, filtered};
         }
+        case 'CLEAR_FILTER' : {
+            let filtered = {
+                ...state.filtered,
+                list : state.list,
+                hasResults : false,
+                isUserFiltering : false
+            }
+            return {...state, filtered };
+        }
         case 'CREATE_EVENT' : {
 
             let list = [...state.list, action.payload]

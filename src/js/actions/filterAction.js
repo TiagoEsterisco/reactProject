@@ -1,7 +1,7 @@
-export function fetchFilter(filter){
+export function setFilter(id){
     return {
-        type: 'CREATE_FILTER',
-        payload: filter
+        type: 'SET_FILTER',
+        payload: id
     }
 };
 
@@ -18,10 +18,16 @@ export function setCurrentFilter(filter){
     }
 };
 
-export function saveFilter(filter){
+export function saveFilter(){
     return {
         type: 'SAVE_FILTER',
-        payload: filter
+    }
+};
+
+export function clearFilter(){
+    return {
+        type: 'CLEAR_FILTER',
+        payload: {}
     }
 };
 

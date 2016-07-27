@@ -15,15 +15,27 @@ export default function reducer(state={
     }
 }, action) {
     switch (action.type) {
+        case 'SET_FILTER' : {
+            let filterId = action.payload;
+
+            let currentFilter = state.list.filter((filter) => {
+                return filter.id == filterId;
+            });
+
+            return {...state, currentFilter: currentFilter[0]};
+        }
         case 'GET_CURRENT_FILTER' : {
             return state;
         }
         case 'SET_CURRENT_FILTER' : {
-            return {...state, currentFilter:action.payload };
-        }
-        case 'CREATE_FILTER' : {
+            let currentFilter = state.currentFilter;
+            let mergeFilter = Object.assign(currentFilter, action.payload);
 
-            return {...state, };
+            return {...state, currentFilter:mergeFilter };
+        }
+        case 'CLEAR_FILTER' : {
+            let currentFilter = action.payload;
+            return {...state, currentFilter };
         }
         case 'CREATE_EVENT' : {
             let notification = {...state.notification};
@@ -44,7 +56,25 @@ export default function reducer(state={
         }
         case 'SAVE_FILTER' : {
 
-            let list = [...state.list, action.payload];
+            let list = [];
+
+            if(state.currentFilter.id){
+
+                var filterIndex;
+                state.list.forEach((filter, index)=>{
+                    if(filter.id == state.currentFilter.id){
+                        filterIndex =  index;
+                    }
+                });
+
+                if(filterIndex){
+                    let filterList = [...state.list];
+                    filterList[filterIndex] = state.currentFilter;
+                    list = filterList;
+                } else {
+                    list = [...state.list, state.currentFilter];
+                }
+            }
 
             return {...state, list}
         }

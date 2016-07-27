@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { fetchEvent, createEvent  } from '../actions/eventAction'
 import { getCurrentFilter  } from '../actions/filterAction'
 
+import FilterList from './FilterList'
 import Events from './Events'
 import Notification from './Notification'
 import SearchEvent from './SearchEvent'
@@ -27,25 +28,20 @@ export default class Layout extends React.Component {
 
     render() {
         const { notification, list, currentFilter } = this.props.filters;
-        let savedFilters;
 
+        return ( <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <Notification notification={notification} dispatch={this.props.dispatch}/>
+                            <Events events={this.props.events}></Events>
+                            <SearchEvent currentFilter={currentFilter} dispatch={this.props.dispatch}/>
 
-        if(list.length){
-            let option = list.map(filter => {
-                return <option key={filter.id} value={filter.id}>{filter.name}</option>
-            });
-            savedFilters = <div><p> Saved Filters: </p><select>{option}</select></div>
-        }
+                            <br/>
 
-        return ( <div>
-                    <Notification notification={notification} dispatch={this.props.dispatch}/>
-                    <Events events={this.props.events}></Events>
-                    <SearchEvent currentFilter={currentFilter} dispatch={this.props.dispatch}/>
-
-                    <br/>
-
-                    {savedFilters}
-                    <button onClick={this.addNewEvent.bind(this)}> Create event </button>
+                            <FilterList filtersList= {list} dispatch={this.props.dispatch} />
+                            <button class="btn btn-info" onClick={this.addNewEvent.bind(this)}> Create event </button>
+                        </div>
+                    </div>
                  </div>
         );
     }
